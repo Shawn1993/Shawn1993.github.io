@@ -9,6 +9,7 @@ baseurl: ""
 description: 非一日之寒
 meta_description: 吴晓晖;个人博客
 motto: 非一日之寒
+banner: 测试
 
 #permalink: /:categories/:year/:month/:day/:title/
 permalink: /:year/:month/:day/:title/
