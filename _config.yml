@@ -1,0 +1,33 @@
+# Site settings
+name: Shawn's Blog
+email: 343270711@qq.com
+author: Shawn
+url: https://Shawn1993.github.io
+resume_site: https://Shawn1993.github.io
+github: https://github.com/Shawn1993
+baseurl: ""
+description: 非一日之寒
+meta_description: 吴晓晖;个人博客
+motto: 非一日之寒
+
+#permalink: /:categories/:year/:month/:day/:title/
+permalink: /:year/:month/:day/:title/
+paginate: 10
+
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
+
+github_username: Shawn1993
+highlighter: rouge
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  extensions:
+    - autolink
+    - footnotes
+    - smart
+  use_coderay: true
+  syntax_highlighter: rouge
+  coderay:
+    coderay_line_numbers:  nil
