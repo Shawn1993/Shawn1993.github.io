@@ -5,6 +5,5 @@ categories:
 tag: 
 ---
 <script language="javascript" type="text/javascript">
-window.location.href = "https://www.zybuluo.com/ShawnNg/note/579387
-"
+window.location.href = "https://www.zybuluo.com/ShawnNg/note/579387"
 </script>

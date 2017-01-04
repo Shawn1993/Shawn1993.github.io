@@ -19,7 +19,7 @@ window.location.href = "{}"
 with open('posts_map.txt', 'r') as f:
     lines = f.readlines()
     for line in lines:
-        date, title, link = tuple(line.split(';'))
+        date, title, link = tuple(line.strip().split(';'))
         fname = '{}-{}.md'.format(date, title.replace(':','_').replace('-','_'))
         with open(fname, 'w') as file:
             file.write(content.format(date, title, '', '', link))
