@@ -13,15 +13,15 @@
     <link rel="canonical" href="/tag/">
     <link rel="alternate" type="application/rss+xml" title="Shawn's Blog" href="/feed.xml">
     <meta name="description" content="吴晓晖;个人博客">
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
+    <!--mathjax-->
+    <!--mathjax source code is here: https://github.com/mathjax/MathJax.-->
     <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]], processEscapes: true }, TeX: { equationNumbers: { autoNumber: "AMS" } }, messageStyle: "none", SVG: { blacker: 1 }});
     </script>
+    <script src="/styles/js/mathjax-bind.js"></script>
+    <script src="/styles/js/mathjax.js"></script>
+    <!--jquery-->
     <script src="/styles/js/jquery.min.js"></script>
-    <!--[if lt IE 9]>
-    	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  	<![endif]-->
     <script>
     var _hmt = _hmt || [];
     (function() {
@@ -151,7 +151,7 @@
     
     <footer class="footer" role="contentinfo">
 	<div class="container">
-		<p class="copyright">Copyright &copy; 2014-2016 <a href="https://Shawn1993.github.io"><code>Shawn</code></a>.</p>
+		<p class="copyright">Copyright &copy; 2014-2017 <a href="https://Shawn1993.github.io"><code>Shawn</code></a>.</p>
 		<p>Powered by <a href="http://jekyllrb.com">Jekyll</a>, theme from <a href="http://lesscss.cn/">Less</a></p>
 	</div>
 </footer>
