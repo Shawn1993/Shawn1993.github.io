@@ -1,5 +1,5 @@
 ---
-date: 2016-11-01
+date: 2016-10-27
 title: 'Extensions of Recurrent Neural Network Language Model'
 categories: 
 tag: 

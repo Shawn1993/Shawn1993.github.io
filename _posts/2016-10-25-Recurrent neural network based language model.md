@@ -1,5 +1,5 @@
 ---
-date: 2016-11-02
+date: 2016-10-25
 title: 'Recurrent neural network based language model'
 categories: 
 tag: 

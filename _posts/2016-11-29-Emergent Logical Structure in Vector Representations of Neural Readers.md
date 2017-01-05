@@ -1,5 +1,5 @@
 ---
-date: 2016-12-14
+date: 2016-11-29
 title: 'Emergent Logical Structure in Vector Representations of Neural Readers'
 categories: 
 tag: 
