@@ -4,168 +4,335 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WebCafe 知识库</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #fafafa;
+      --card-bg: #fff;
+      --text: #1a1a1a;
+      --text-secondary: #666;
+      --border: #e5e5e5;
+      --accent: #5c6bc0;
+      --accent-light: #e8eaf6;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f5f5f5; 
-      color: #333;
-      line-height: 1.6;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
     }
-    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-    header { 
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white; 
-      padding: 40px 20px;
+    
+    /* 列表视图 */
+    #listView { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+    
+    .header {
       text-align: center;
+      margin-bottom: 50px;
+    }
+    .header h1 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 2.5em;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .header p { color: var(--text-secondary); font-size: 1.1em; }
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 25px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .stats strong { 
+      font-size: 28px; 
+      font-weight: 600;
+      color: var(--text);
+      display: block;
+    }
+    
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-bar input:focus { border-color: var(--accent); }
+    .search-bar select {
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+    }
+    
+    .article-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .article-item:hover { opacity: 0.7; }
+    .article-item:first-child { padding-top: 0; }
+    
+    .article-category {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .article-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.35em;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .article-excerpt {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .article-meta {
+      display: flex;
+      gap: 20px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .article-meta span { display: flex; align-items: center; gap: 5px; }
+    
+    .load-more {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin-top: 30px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .load-more:hover { background: var(--bg); }
+    
+    /* 文章详情视图 */
+    #articleView {
+      display: none;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    #articleView.active { display: block; }
+    #listView.hidden { display: none; }
+    
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      cursor: pointer;
       margin-bottom: 30px;
+    }
+    .back-btn:hover { color: var(--text); }
+    
+    .article-header {
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-header .category {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .article-header h1 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 2em;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 20px;
+    }
+    .article-header .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .article-header .author {
+      font-weight: 500;
+      color: var(--text);
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .tag {
+      padding: 4px 12px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .article-content {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.9;
+      color: #333;
+    }
+    .article-content p { margin-bottom: 1.5em; }
+    .article-content img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 24px 0;
+    }
+    .article-content a { color: var(--accent); }
+    
+    .article-images {
+      margin: 40px 0;
+      padding: 30px;
+      background: #f5f5f5;
       border-radius: 12px;
     }
-    header h1 { font-size: 2em; margin-bottom: 10px; }
-    header p { opacity: 0.9; }
-    .stats { 
-      display: flex; 
-      gap: 20px; 
-      justify-content: center;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-    .stat { 
-      background: rgba(255,255,255,0.2); 
-      padding: 10px 20px; 
-      border-radius: 8px;
-    }
-    .stat strong { font-size: 1.5em; display: block; }
-    .filters {
-      display: flex;
-      gap: 10px;
+    .article-images h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
       margin-bottom: 20px;
-      flex-wrap: wrap;
     }
-    .filters input, .filters select {
-      padding: 10px 15px;
-      border: 1px solid #ddd;
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .image-grid img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
       border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .image-grid img:hover { transform: scale(1.02); }
+    
+    .comments-section {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .comments-section h3 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.3em;
+      margin-bottom: 30px;
+    }
+    .comment {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .comment:last-child { border-bottom: none; }
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .comment-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
       font-size: 14px;
     }
-    .filters input { flex: 1; min-width: 200px; }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+    .comment-author {
+      font-weight: 600;
+      font-size: 14px;
     }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-    .card h3 { font-size: 1.1em; color: #333; flex: 1; }
-    .card-meta { font-size: 12px; color: #888; margin-top: 8px; }
-    .card-meta span { margin-right: 15px; }
-    .tag { 
-      display: inline-block;
-      background: #e8f0fe;
-      color: #1a73e8;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      margin-right: 5px;
+    .comment-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #444;
+      padding-left: 52px;
     }
-    .category {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 4px;
-      white-space: nowrap;
+    
+    .no-content {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-secondary);
     }
-    .category.post { background: #e3f2fd; color: #1976d2; }
-    .category.tutorial { background: #fff3e0; color: #f57c00; }
-    .category.experience { background: #e8f5e9; color: #388e3c; }
-    .modal {
+    
+    /* 图片放大 */
+    .lightbox {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 100;
-      overflow-y: auto;
-    }
-    .modal.active { display: flex; justify-content: center; padding: 20px; }
-    .modal-content {
-      background: white;
-      border-radius: 16px;
-      max-width: 800px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      margin: auto;
-    }
-    .modal-header {
-      padding: 20px;
-      border-bottom: 1px solid #eee;
-      position: sticky;
-      top: 0;
-      background: white;
-      border-radius: 16px 16px 0 0;
-    }
-    .modal-header h2 { font-size: 1.3em; }
-    .modal-close {
-      position: absolute;
-      top: 15px; right: 15px;
-      background: #f5f5f5;
-      border: none;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-    }
-    .modal-body { padding: 20px; }
-    .modal-body img { max-width: 100%; border-radius: 8px; margin: 10px 0; }
-    .content-text { white-space: pre-wrap; line-height: 1.8; }
-    .comments { margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
-    .comments h4 { margin-bottom: 15px; color: #666; }
-    .comment { 
-      background: #f9f9f9; 
-      padding: 12px; 
-      border-radius: 8px; 
-      margin-bottom: 10px;
-    }
-    .comment-author { font-weight: 600; color: #333; margin-bottom: 5px; }
-    .comment-text { color: #555; font-size: 14px; }
-    .pagination {
-      display: flex;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      cursor: zoom-out;
       justify-content: center;
-      gap: 10px;
-      margin-top: 30px;
+      align-items: center;
     }
-    .pagination button {
-      padding: 10px 20px;
-      border: 1px solid #ddd;
-      background: white;
-      border-radius: 8px;
-      cursor: pointer;
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
     }
-    .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .pagination button.active { background: #667eea; color: white; border-color: #667eea; }
-    #loading { text-align: center; padding: 40px; color: #888; }
-    .no-results { text-align: center; padding: 60px 20px; color: #888; }
+    
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.8em; }
+      .article-header h1 { font-size: 1.5em; }
+      .stats { gap: 25px; }
+      .stats strong { font-size: 22px; }
+      .article-content { font-size: 16px; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>🍵 WebCafe 知识库</h1>
+  <div id="listView">
+    <div class="header">
+      <h1>WebCafe 知识库</h1>
       <p>哥飞社群精华内容存档</p>
       <div class="stats">
-        <div class="stat"><strong id="totalCount">-</strong>篇内容</div>
-        <div class="stat"><strong id="commentCount">-</strong>条评论</div>
-        <div class="stat"><strong id="imageCount">-</strong>张图片</div>
+        <div><strong id="totalCount">-</strong>篇文章</div>
+        <div><strong id="commentCount">-</strong>条评论</div>
       </div>
-    </header>
+    </div>
     
-    <div class="filters">
-      <input type="text" id="search" placeholder="搜索标题或内容...">
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="搜索文章...">
       <select id="categoryFilter">
-        <option value="">全部分类</option>
+        <option value="">全部</option>
         <option value="post">帖子</option>
         <option value="tutorial">教程</option>
         <option value="experience">经验</option>
@@ -173,87 +340,96 @@
     </div>
     
     <div id="list"></div>
-    <div id="loading">加载中...</div>
-    <div class="pagination" id="pagination"></div>
+    <button class="load-more" id="loadMore" style="display:none">加载更多</button>
   </div>
   
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 id="modalTitle"></h2>
-        <button class="modal-close" onclick="closeModal()">×</button>
+  <div id="articleView">
+    <a class="back-btn" onclick="showList()">← 返回列表</a>
+    <article>
+      <div class="article-header">
+        <div class="category" id="articleCategory"></div>
+        <h1 id="articleTitle"></h1>
+        <div class="meta">
+          <span class="author" id="articleAuthor"></span>
+          <span id="articleDate"></span>
+        </div>
+        <div class="tags" id="articleTags"></div>
       </div>
-      <div class="modal-body" id="modalBody"></div>
-    </div>
+      <div class="article-content" id="articleContent"></div>
+      <div class="article-images" id="articleImages" style="display:none">
+        <h3>📷 配图</h3>
+        <div class="image-grid" id="imageGrid"></div>
+      </div>
+      <div class="comments-section" id="commentsSection" style="display:none">
+        <h3>💬 评论 <span id="commentCountDetail"></span></h3>
+        <div id="commentsList"></div>
+      </div>
+    </article>
+  </div>
+  
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg" src="">
   </div>
 
   <script>
     let data = [];
     let filtered = [];
-    const PAGE_SIZE = 20;
-    let currentPage = 1;
+    let displayed = 0;
+    const PAGE_SIZE = 15;
     
     async function init() {
       const resp = await fetch('data.json');
       data = await resp.json();
       
-      // 统计
+      // 按时间排序
+      data.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+      
       document.getElementById('totalCount').textContent = data.length;
-      document.getElementById('commentCount').textContent = data.reduce((a, d) => a + (d.comments?.length || 0), 0);
-      document.getElementById('imageCount').textContent = data.reduce((a, d) => a + (d.images?.length || 0), 0);
+      document.getElementById('commentCount').textContent = 
+        data.reduce((a, d) => a + (d.comments?.length || 0), 0);
       
       filtered = [...data];
-      render();
-      document.getElementById('loading').style.display = 'none';
+      displayed = 0;
+      renderMore();
     }
     
-    function render() {
-      const start = (currentPage - 1) * PAGE_SIZE;
-      const page = filtered.slice(start, start + PAGE_SIZE);
-      
+    function renderMore() {
+      const items = filtered.slice(displayed, displayed + PAGE_SIZE);
       const list = document.getElementById('list');
-      if (filtered.length === 0) {
-        list.innerHTML = '<div class="no-results">没有找到相关内容</div>';
-        document.getElementById('pagination').innerHTML = '';
+      
+      if (displayed === 0 && items.length === 0) {
+        list.innerHTML = '<div class="no-content">没有找到相关内容</div>';
+        document.getElementById('loadMore').style.display = 'none';
         return;
       }
       
-      list.innerHTML = page.map((item, i) => `
-        <div class="card" onclick="showDetail(${start + i})">
-          <div class="card-header">
-            <h3>${escapeHtml(item.title || item.uid)}</h3>
-            <span class="category ${item.category || 'post'}">${item.categoryName || '帖子'}</span>
+      const html = items.map((item, i) => {
+        const idx = displayed + i;
+        const excerpt = (item.markdown || '').slice(0, 120).replace(/\n/g, ' ');
+        return `
+          <div class="article-item" onclick="showArticle(${idx})">
+            <div class="article-category">${item.categoryName || '帖子'}</div>
+            <div class="article-title">${escapeHtml(item.title || item.uid)}</div>
+            <div class="article-excerpt">${escapeHtml(excerpt)}...</div>
+            <div class="article-meta">
+              <span>${escapeHtml(item.userName || '匿名')}</span>
+              <span>${item.createdAt?.slice(0, 10) || ''}</span>
+              ${item.comments?.length ? `<span>💬 ${item.comments.length}</span>` : ''}
+              ${item.images?.length ? `<span>🖼 ${item.images.length}</span>` : ''}
+            </div>
           </div>
-          <div class="card-meta">
-            <span>👤 ${escapeHtml(item.userName || '未知')}</span>
-            <span>📅 ${item.createdAt?.slice(0, 10) || ''}</span>
-            ${item.comments?.length ? `<span>💬 ${item.comments.length}</span>` : ''}
-            ${item.images?.length ? `<span>🖼 ${item.images.length}</span>` : ''}
-          </div>
-          ${item.tags?.length ? `<div style="margin-top:8px">${item.tags.slice(0,3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
-        </div>
-      `).join('');
+        `;
+      }).join('');
       
-      renderPagination();
-    }
-    
-    function renderPagination() {
-      const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-      if (totalPages <= 1) {
-        document.getElementById('pagination').innerHTML = '';
-        return;
+      if (displayed === 0) {
+        list.innerHTML = html;
+      } else {
+        list.innerHTML += html;
       }
       
-      let html = `<button onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一页</button>`;
-      html += `<span style="padding:10px">${currentPage} / ${totalPages}</span>`;
-      html += `<button onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页</button>`;
-      document.getElementById('pagination').innerHTML = html;
-    }
-    
-    function goPage(p) {
-      currentPage = p;
-      render();
-      window.scrollTo(0, 0);
+      displayed += items.length;
+      document.getElementById('loadMore').style.display = 
+        displayed < filtered.length ? 'block' : 'none';
     }
     
     function filter() {
@@ -269,57 +445,120 @@
         return true;
       });
       
-      currentPage = 1;
-      render();
+      displayed = 0;
+      document.getElementById('list').innerHTML = '';
+      renderMore();
     }
     
-    function showDetail(idx) {
+    function showArticle(idx) {
       const item = filtered[idx];
-      document.getElementById('modalTitle').textContent = item.title || item.uid;
       
-      let html = `<div class="content-text">${escapeHtml(item.markdown || '无内容')}</div>`;
+      document.getElementById('articleCategory').textContent = item.categoryName || '帖子';
+      document.getElementById('articleTitle').textContent = item.title || item.uid;
+      document.getElementById('articleAuthor').textContent = item.userName || '匿名';
+      document.getElementById('articleDate').textContent = item.createdAt?.slice(0, 10) || '';
       
+      // 标签
+      const tagsEl = document.getElementById('articleTags');
+      if (item.tags?.length) {
+        tagsEl.innerHTML = item.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+        tagsEl.style.display = 'flex';
+      } else {
+        tagsEl.style.display = 'none';
+      }
+      
+      // 内容 - 转换为段落
+      const content = (item.markdown || '无内容').split(/\n\n+/).map(p => 
+        `<p>${escapeHtml(p.trim())}</p>`
+      ).join('');
+      document.getElementById('articleContent').innerHTML = content;
+      
+      // 图片
+      const imagesEl = document.getElementById('articleImages');
       if (item.images?.length) {
-        html += `<div style="margin-top:20px"><h4>📷 图片 (${item.images.length})</h4>`;
-        item.images.forEach(src => {
-          html += `<img src="${escapeHtml(src)}" onerror="this.style.display='none'" loading="lazy">`;
-        });
-        html += '</div>';
+        document.getElementById('imageGrid').innerHTML = item.images.map(src =>
+          `<img src="${escapeHtml(src)}" onclick="openLightbox(event, '${escapeHtml(src)}')" onerror="this.style.display='none'" loading="lazy">`
+        ).join('');
+        imagesEl.style.display = 'block';
+      } else {
+        imagesEl.style.display = 'none';
       }
       
+      // 评论
+      const commentsEl = document.getElementById('commentsSection');
       if (item.comments?.length) {
-        html += `<div class="comments"><h4>💬 评论 (${item.comments.length})</h4>`;
-        item.comments.forEach(c => {
-          html += `<div class="comment"><div class="comment-author">${escapeHtml(c.author)}</div><div class="comment-text">${escapeHtml(c.text)}</div></div>`;
-        });
-        html += '</div>';
+        document.getElementById('commentCountDetail').textContent = `(${item.comments.length})`;
+        document.getElementById('commentsList').innerHTML = item.comments.map(c => `
+          <div class="comment">
+            <div class="comment-header">
+              <div class="comment-avatar">${(c.author || '?')[0]}</div>
+              <div class="comment-author">${escapeHtml(c.author || '匿名')}</div>
+            </div>
+            <div class="comment-text">${escapeHtml(c.text)}</div>
+          </div>
+        `).join('');
+        commentsEl.style.display = 'block';
+      } else {
+        commentsEl.style.display = 'none';
       }
       
-      document.getElementById('modalBody').innerHTML = html;
-      document.getElementById('modal').classList.add('active');
-      document.body.style.overflow = 'hidden';
+      document.getElementById('listView').classList.add('hidden');
+      document.getElementById('articleView').classList.add('active');
+      window.scrollTo(0, 0);
+      history.pushState({ article: idx }, '', `#${item.uid}`);
     }
     
-    function closeModal() {
-      document.getElementById('modal').classList.remove('active');
-      document.body.style.overflow = '';
+    function showList() {
+      document.getElementById('articleView').classList.remove('active');
+      document.getElementById('listView').classList.remove('hidden');
+      history.pushState({}, '', location.pathname);
+    }
+    
+    function openLightbox(e, src) {
+      e.stopPropagation();
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('active');
+    }
+    
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
     }
     
     function escapeHtml(str) {
       if (!str) return '';
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     
     document.getElementById('search').addEventListener('input', filter);
     document.getElementById('categoryFilter').addEventListener('change', filter);
-    document.getElementById('modal').addEventListener('click', e => {
-      if (e.target.id === 'modal') closeModal();
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeModal();
+    document.getElementById('loadMore').addEventListener('click', renderMore);
+    
+    window.addEventListener('popstate', () => {
+      if (location.hash) {
+        const uid = location.hash.slice(1);
+        const idx = filtered.findIndex(d => d.uid === uid);
+        if (idx >= 0) showArticle(idx);
+      } else {
+        showList();
+      }
     });
     
-    init();
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        if (document.getElementById('articleView').classList.contains('active')) {
+          showList();
+        }
+      }
+    });
+    
+    init().then(() => {
+      if (location.hash) {
+        const uid = location.hash.slice(1);
+        const idx = filtered.findIndex(d => d.uid === uid);
+        if (idx >= 0) showArticle(idx);
+      }
+    });
   </script>
 </body>
 </html>
