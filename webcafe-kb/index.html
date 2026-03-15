@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebCafe 知识库</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5; 
+      color: #333;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+    header { 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white; 
+      padding: 40px 20px;
+      text-align: center;
+      margin-bottom: 30px;
+      border-radius: 12px;
+    }
+    header h1 { font-size: 2em; margin-bottom: 10px; }
+    header p { opacity: 0.9; }
+    .stats { 
+      display: flex; 
+      gap: 20px; 
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .stat { 
+      background: rgba(255,255,255,0.2); 
+      padding: 10px 20px; 
+      border-radius: 8px;
+    }
+    .stat strong { font-size: 1.5em; display: block; }
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filters input, .filters select {
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .filters input { flex: 1; min-width: 200px; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .card h3 { font-size: 1.1em; color: #333; flex: 1; }
+    .card-meta { font-size: 12px; color: #888; margin-top: 8px; }
+    .card-meta span { margin-right: 15px; }
+    .tag { 
+      display: inline-block;
+      background: #e8f0fe;
+      color: #1a73e8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-right: 5px;
+    }
+    .category {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .category.post { background: #e3f2fd; color: #1976d2; }
+    .category.tutorial { background: #fff3e0; color: #f57c00; }
+    .category.experience { background: #e8f5e9; color: #388e3c; }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      overflow-y: auto;
+    }
+    .modal.active { display: flex; justify-content: center; padding: 20px; }
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      margin: auto;
+    }
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      background: white;
+      border-radius: 16px 16px 0 0;
+    }
+    .modal-header h2 { font-size: 1.3em; }
+    .modal-close {
+      position: absolute;
+      top: 15px; right: 15px;
+      background: #f5f5f5;
+      border: none;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .modal-body { padding: 20px; }
+    .modal-body img { max-width: 100%; border-radius: 8px; margin: 10px 0; }
+    .content-text { white-space: pre-wrap; line-height: 1.8; }
+    .comments { margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+    .comments h4 { margin-bottom: 15px; color: #666; }
+    .comment { 
+      background: #f9f9f9; 
+      padding: 12px; 
+      border-radius: 8px; 
+      margin-bottom: 10px;
+    }
+    .comment-author { font-weight: 600; color: #333; margin-bottom: 5px; }
+    .comment-text { color: #555; font-size: 14px; }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+    .pagination button {
+      padding: 10px 20px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .pagination button.active { background: #667eea; color: white; border-color: #667eea; }
+    #loading { text-align: center; padding: 40px; color: #888; }
+    .no-results { text-align: center; padding: 60px 20px; color: #888; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🍵 WebCafe 知识库</h1>
+      <p>哥飞社群精华内容存档</p>
+      <div class="stats">
+        <div class="stat"><strong id="totalCount">-</strong>篇内容</div>
+        <div class="stat"><strong id="commentCount">-</strong>条评论</div>
+        <div class="stat"><strong id="imageCount">-</strong>张图片</div>
+      </div>
+    </header>
+    
+    <div class="filters">
+      <input type="text" id="search" placeholder="搜索标题或内容...">
+      <select id="categoryFilter">
+        <option value="">全部分类</option>
+        <option value="post">帖子</option>
+        <option value="tutorial">教程</option>
+        <option value="experience">经验</option>
+      </select>
+    </div>
+    
+    <div id="list"></div>
+    <div id="loading">加载中...</div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+  
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    let data = [];
+    let filtered = [];
+    const PAGE_SIZE = 20;
+    let currentPage = 1;
+    
+    async function init() {
+      const resp = await fetch('data.json');
+      data = await resp.json();
+      
+      // 统计
+      document.getElementById('totalCount').textContent = data.length;
+      document.getElementById('commentCount').textContent = data.reduce((a, d) => a + (d.comments?.length || 0), 0);
+      document.getElementById('imageCount').textContent = data.reduce((a, d) => a + (d.images?.length || 0), 0);
+      
+      filtered = [...data];
+      render();
+      document.getElementById('loading').style.display = 'none';
+    }
+    
+    function render() {
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const page = filtered.slice(start, start + PAGE_SIZE);
+      
+      const list = document.getElementById('list');
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="no-results">没有找到相关内容</div>';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+      
+      list.innerHTML = page.map((item, i) => `
+        <div class="card" onclick="showDetail(${start + i})">
+          <div class="card-header">
+            <h3>${escapeHtml(item.title || item.uid)}</h3>
+            <span class="category ${item.category || 'post'}">${item.categoryName || '帖子'}</span>
+          </div>
+          <div class="card-meta">
+            <span>👤 ${escapeHtml(item.userName || '未知')}</span>
+            <span>📅 ${item.createdAt?.slice(0, 10) || ''}</span>
+            ${item.comments?.length ? `<span>💬 ${item.comments.length}</span>` : ''}
+            ${item.images?.length ? `<span>🖼 ${item.images.length}</span>` : ''}
+          </div>
+          ${item.tags?.length ? `<div style="margin-top:8px">${item.tags.slice(0,3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+        </div>
+      `).join('');
+      
+      renderPagination();
+    }
+    
+    function renderPagination() {
+      const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+      if (totalPages <= 1) {
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+      
+      let html = `<button onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一页</button>`;
+      html += `<span style="padding:10px">${currentPage} / ${totalPages}</span>`;
+      html += `<button onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页</button>`;
+      document.getElementById('pagination').innerHTML = html;
+    }
+    
+    function goPage(p) {
+      currentPage = p;
+      render();
+      window.scrollTo(0, 0);
+    }
+    
+    function filter() {
+      const q = document.getElementById('search').value.toLowerCase();
+      const cat = document.getElementById('categoryFilter').value;
+      
+      filtered = data.filter(item => {
+        if (cat && item.category !== cat) return false;
+        if (q) {
+          const text = (item.title || '') + (item.markdown || '');
+          if (!text.toLowerCase().includes(q)) return false;
+        }
+        return true;
+      });
+      
+      currentPage = 1;
+      render();
+    }
+    
+    function showDetail(idx) {
+      const item = filtered[idx];
+      document.getElementById('modalTitle').textContent = item.title || item.uid;
+      
+      let html = `<div class="content-text">${escapeHtml(item.markdown || '无内容')}</div>`;
+      
+      if (item.images?.length) {
+        html += `<div style="margin-top:20px"><h4>📷 图片 (${item.images.length})</h4>`;
+        item.images.forEach(src => {
+          html += `<img src="${escapeHtml(src)}" onerror="this.style.display='none'" loading="lazy">`;
+        });
+        html += '</div>';
+      }
+      
+      if (item.comments?.length) {
+        html += `<div class="comments"><h4>💬 评论 (${item.comments.length})</h4>`;
+        item.comments.forEach(c => {
+          html += `<div class="comment"><div class="comment-author">${escapeHtml(c.author)}</div><div class="comment-text">${escapeHtml(c.text)}</div></div>`;
+        });
+        html += '</div>';
+      }
+      
+      document.getElementById('modalBody').innerHTML = html;
+      document.getElementById('modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    
+    document.getElementById('search').addEventListener('input', filter);
+    document.getElementById('categoryFilter').addEventListener('change', filter);
+    document.getElementById('modal').addEventListener('click', e => {
+      if (e.target.id === 'modal') closeModal();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+    
+    init();
+  </script>
+</body>
+</html>
