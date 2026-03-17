@@ -14,7 +14,6 @@ Core Web Vitals（核心网页指标）是 Google 用于衡量用户在网页上
 
 ### 1.1 什么是 Core Web Vitals
 
-![A dashboard screenshot from Ahrefs Brand Radar showing an overview of Tesla's AI visibility. It displays key metrics like AI Share of Voice (65.0%), and a line graph comparing Tesla's share of voice against competitors like BYD, Lucid, and Rivian over the past year. ](https://ahrefs.com/blog/wp-content/uploads/2025/09/a-dashboard-screenshot-from-ahrefs-brand-radar-sho.png)
 
 
 Core Web Vitals 是 Google Page Experience 信号的核心组成部分，用于量化用户在网页上的真实体验。这些指标基于 Chrome 用户体验报告（CrUX）的真实用户数据，而非实验室模拟环境。
@@ -479,7 +478,6 @@ window.addEventListener('scroll', throttledScroll, { passive: true });
 
 Chrome User Experience Report（CrUX）是 CWV 数据的权威来源。
 
-![Three traits for effective content marketing reports. ](https://ahrefs.com/blog/wp-content/uploads/2024/03/three-traits-for-effective-content-marketing-repor.png)
 
 
 **访问 CrUX 数据**：
@@ -611,7 +609,6 @@ WordPress 5.5+ 内置了原生图片延迟加载，但可能需要优化：
 
 ### 7.1 不要追求100分
 
-![referring domains top ranking page](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-top-ranking-page.png)
 
 
 **误区**：必须让 PageSpeed Insights 达到 100 分。
