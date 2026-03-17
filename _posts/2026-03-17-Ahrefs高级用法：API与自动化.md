@@ -12,13 +12,18 @@ layout: post
 
 ## 引言：为什么需要自动化SEO工作流
 
+![图：API可访问的外链增长数据——程序化获取并分析引用域名变化趋势](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-eighth-ranking-page.png)
+*图：API可访问的外链增长数据——程序化获取并分析引用域名变化趋势*
+
+
+
+
 SEO是一项数据密集型工作。每天，SEO从业者需要：
 - 监控数十个竞品的排名变化
 - 追踪成百上千个关键词的表现
 - 审计数万个页面的技术问题
 - 分析海量的反向链接数据
 
-![referring domains eighth ranking page](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-eighth-ranking-page.png)
 
 
 当业务规模扩大，手动操作不再可行。这就是为什么Ahrefs不仅是一个工具，更是一个可编程的SEO数据平台。
@@ -109,10 +114,15 @@ for domain in competitors:
 
 基于Ahrefs官方文档和企业用户的最佳实践，以下是8个最具价值的API应用场景：
 
-![Finding the Organic Competitors report in Ahrefs' dashboard.](https://ahrefs.com/blog/wp-content/uploads/2025/01/finding-the-organic-competitors-report-in-ahrefs.png)
 
 
 ### 3.1 自动化竞争对手监控
+
+![图：自动化竞品监控的数据源——通过API批量拉取竞品SEO指标](https://ahrefs.com/blog/wp-content/uploads/2025/01/finding-the-organic-competitors-report-in-ahrefs.png)
+*图：自动化竞品监控的数据源——通过API批量拉取竞品SEO指标*
+
+
+
 
 **场景描述**：
 代理商需要为20个客户分别监控5个竞品，共100个域名的日常追踪。
@@ -130,6 +140,12 @@ for domain in competitors:
 **效果**：原本需要5小时的手动工作，现在5分钟自动完成。
 
 ### 3.2 批量生成SEO报告
+
+![图：自动化报告三原则——数据驱动、可操作、功能导向指导报告设计](https://ahrefs.com/blog/wp-content/uploads/2024/03/three-traits-for-effective-content-marketing-repor.png)
+*图：自动化报告三原则——数据驱动、可操作、功能导向指导报告设计*
+
+
+
 
 **场景描述**：
 SEO代理商需要每月为客户生成包含多项指标的SEO报告。
@@ -182,7 +198,6 @@ SEO代理商需要每月为客户生成包含多项指标的SEO报告。
 - Ahrefs提供官方MCP服务器
 - 用户无需编码即可通过自然语言查询Ahrefs数据
 
-![A gif flicking through 6 pages of Ahrefs' brand awareness Looker Studio dashboard, complete with scorecard stats, tables, and history charts](https://ahrefs.com/blog/wp-content/uploads/2025/04/word-image-187106-1.gif)
 
 
 **为什么这很重要？**
@@ -205,6 +220,12 @@ SEO代理商需要每月为客户生成包含多项指标的SEO报告。
 **支持的计划**：Lite/Standard/Advanced/Enterprise所有计划均支持。
 
 ### 4.3 15个MCP使用场景
+
+![图：ChatGPT数据分析示例——MCP协议让AI助手直接调用Ahrefs实时数据库](https://ahrefs.com/blog/wp-content/uploads/2024/12/word-image-183492-1.png)
+*图：ChatGPT数据分析示例——MCP协议让AI助手直接调用Ahrefs实时数据库*
+
+
+
 
 Ahrefs官方文档提供了15个MCP使用场景，按复杂度分为三级：
 
@@ -267,6 +288,12 @@ Ahrefs官方文档提供了15个MCP使用场景，按复杂度分为三级：
 
 ### 5.2 最多1000个目标同时分析
 
+![图：API返回的历史数据示例——支持任意时间段的数据对比分析](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-top-ranking-page.png)
+*图：API返回的历史数据示例——支持任意时间段的数据对比分析*
+
+
+
+
 **使用场景**：
 
 
@@ -287,6 +314,12 @@ Ahrefs官方文档提供了15个MCP使用场景，按复杂度分为三级：
 - 指导内容优化优先级
 
 ### 5.3 批量外链和关键词分析
+
+![图：批量分析结果示例——一次性获取多个URL的核心SEO指标](https://ahrefs.com/blog/wp-content/uploads/2022/11/2-shopify-free-tools-stats.png)
+*图：批量分析结果示例——一次性获取多个URL的核心SEO指标*
+
+
+
 
 **批量外链分析工作流**：
 1. 从Site Explorer导出所有引用域名
@@ -324,6 +357,12 @@ Screaming Frog是业界标准的技术SEO爬虫，与Ahrefs集成后可以：
 
 ### 6.2 Looker Studio/Data Studio连接器
 
+![图：品牌流量监控仪表盘——Looker Studio连接器实现自动化报告可视化](https://ahrefs.com/blog/wp-content/uploads/2025/04/word-image-187106-1.gif)
+*图：品牌流量监控仪表盘——Looker Studio连接器实现自动化报告可视化*
+
+
+
+
 **2023年新增**：Ahrefs发布官方Looker Studio连接器。
 
 **应用场景**：
@@ -353,12 +392,17 @@ Screaming Frog是业界标准的技术SEO爬虫，与Ahrefs集成后可以：
 - 排名变化 → 邮件提醒
 - 周报数据 → 自动存档
 
-![referring domains top ranking page](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-top-ranking-page.png)
 
 
 ---
 
 ## 第六章：企业版高级功能
+
+![图：Brand Radar AI可见性监控——企业级功能追踪品牌在AI搜索中的表现](https://ahrefs.com/blog/wp-content/uploads/2025/09/a-dashboard-screenshot-from-ahrefs-brand-radar-sho.png)
+*图：Brand Radar AI可见性监控——企业级功能追踪品牌在AI搜索中的表现*
+
+
+
 
 Ahrefs Enterprise为大型组织提供了专属的高级功能。
 

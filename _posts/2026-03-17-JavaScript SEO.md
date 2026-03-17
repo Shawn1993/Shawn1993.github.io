@@ -14,7 +14,6 @@ layout: post
 
 ### 1.1 现代网站为什么依赖 JavaScript
 
-![Top pages report, via Ahrefs' Site Explorer ](https://ahrefs.com/blog/wp-content/uploads/2023/05/image13-3.png)
 
 
 JavaScript 已经从简单的交互脚本发展成为构建整个应用的核心技术。现代网站使用 JavaScript 的原因包括：
@@ -146,6 +145,10 @@ Google 的渲染资源是有限的。优先级因素包括：
 ---
 
 ## 第二章：渲染方式对比
+
+![图：研究竞争对手反链策略的具体操作说明](https://ahrefs.com/blog/wp-content/uploads/2018/01/link-to-ahrefs-on-the-page.png)
+*图：研究竞争对手反链策略的具体操作说明*
+
 
 选择正确的渲染方式是 JavaScript SEO 的核心决策。
 
@@ -784,3 +787,31 @@ JavaScript 不是 SEO 的敌人。正如 Ahrefs 所说："Ahrefs 博客使用 Wo
 6. [Google's New Search Console URL Inspection API](https://ahrefs.com/blog/google-search-console-url-inspection-api/) - Ahrefs Blog
 7. [How to Do an SEO Log File Analysis](https://ahrefs.com/blog/log-file-analysis/) - Ahrefs Blog
 8. [Mobile-First Indexing Goes Mobile-Only](https://ahrefs.com/blog/mobile-first-indexing/) - Ahrefs Blog
+
+
+![图：Ahrefs外链分析工具中的竞争对手反链数据概览](https://ahrefs.com/blog/wp-content/uploads/2018/01/link-to-ahrefs.png)
+*图：Ahrefs外链分析工具中的竞争对手反链数据概览*
+
+
+![图：Ahrefs工具栏显示页面可索引性与Robots指令检测](https://ahrefs.com/blog/wp-content/uploads/2022/08/2-indexability.png)
+*图：Ahrefs工具栏显示页面可索引性与Robots指令检测*
+
+
+![图：单页面网站与多页面网站的架构对比示意图](https://ahrefs.com/blog/wp-content/uploads/2023/05/single-page-website-seo_1.png)
+*图：单页面网站与多页面网站的架构对比示意图*
+
+
+![图：有无Schema标记的Google富媒体搜索结果对比](https://ahrefs.com/blog/wp-content/uploads/2023/08/image4-12.png)
+*图：有无Schema标记的Google富媒体搜索结果对比*
+
+
+![图：Schema结构化数据对搜索富摘要展示的影响](https://ahrefs.com/blog/wp-content/uploads/2023/09/rich-snippets.png)
+*图：Schema结构化数据对搜索富摘要展示的影响*
+
+
+![图：Google搜索结果页中多个网站的自然排名展示](https://ahrefs.com/blog/wp-content/uploads/2023/08/image13-1.png)
+*图：Google搜索结果页中多个网站的自然排名展示*
+
+
+![图：SEO基础操作清单，包含建站必做的优化事项](https://ahrefs.com/blog/wp-content/uploads/2023/08/1-seo-checklist-template-preview.gif)
+*图：SEO基础操作清单，包含建站必做的优化事项*
