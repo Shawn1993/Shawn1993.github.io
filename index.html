@@ -2,38 +2,33 @@
 layout: default
 title: home
 ---
-<div class="content-container">
-    <!-- Category Navigation -->
-    <nav class="category-nav">
-        {% assign sorted_categories = site.categories | sort %}
-        {% for category in sorted_categories %}
-        <a class="category-nav__item" href="{{ '/categories/' | prepend: site.baseurl }}#{{ category[0] }}-ref">
-            {{ category[0] }}
-            <span class="category-nav__count">{{ category[1].size }}</span>
-        </a>
-        {% endfor %}
-    </nav>
-
-    <!-- Post List -->
-    <div class="post-list">
-        {% for post in site.posts %}
-            {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-            {% capture prev_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
-
-            {% if forloop.first or this_year != prev_year %}
-                {% unless forloop.first %}{% endunless %}
-                <div class="post-list__year" id="year_{{ this_year }}">{{ this_year }}</div>
-            {% endif %}
-
-            <div class="post-item">
-                <span class="post-item__date">{{ post.date | date: "%m-%d" }}</span>
-                <span class="post-item__title">
-                    <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-                </span>
-                {% if post.categories and post.categories.size > 0 %}
-                <span class="post-item__category">{{ post.categories | first }}</span>
-                {% endif %}
-            </div>
+<div class="taxonomy-layout">
+    <aside class="taxonomy-sidebar">
+        <div class="taxonomy-sidebar__title">分类</div>
+        <ul class="taxonomy-sidebar__list">
+            {% for category in site.categories %}
+            <li class="taxonomy-sidebar__item">
+                <a href="#{{ category[0] }}-ref">
+                    {{ category[0] }}
+                    <span class="count">({{ category[1].size }})</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+    <div class="taxonomy-page">
+        {% for category in site.categories %}
+        <section class="taxonomy-section" id="{{ category[0] }}-ref">
+            <h2 class="taxonomy-section__title">{{ category[0] }}</h2>
+            <ul class="taxonomy-list">
+                {% for post in category[1] %}
+                <li class="taxonomy-list__item">
+                    <span class="taxonomy-list__date">{{ post.date | date: "%Y-%m-%d" }}</span>
+                    <a class="taxonomy-list__link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
         {% endfor %}
     </div>
 </div>
