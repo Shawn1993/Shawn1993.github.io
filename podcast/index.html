@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahrefs SEO 知识库 - 播客版</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header p { opacity: 0.9; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .stat { text-align: center; }
+        .stat-num { font-size: 2em; font-weight: bold; }
+        .stat-label { font-size: 0.9em; opacity: 0.8; }
+        
+        .article-list { margin-top: 20px; }
+        .article-card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .article-card:hover { background: #334155; transform: translateX(4px); }
+        .article-card.playing { border-left: 4px solid #667eea; }
+        
+        .article-num {
+            width: 40px;
+            height: 40px;
+            background: #334155;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .article-info { flex: 1; min-width: 0; }
+        .article-title {
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .article-category {
+            font-size: 0.85em;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        .play-btn {
+            width: 44px;
+            height: 44px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2em;
+        }
+        .article-card.playing .play-btn { background: #ef4444; }
+        
+        /* 底部播放器 */
+        .player-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1e293b;
+            border-top: 1px solid #334155;
+            padding: 12px 20px;
+            display: none;
+        }
+        .player-bar.active { display: block; }
+        .player-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .player-title {
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .player-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #334155;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #667eea;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        .time { font-size: 0.85em; color: #94a3b8; min-width: 90px; text-align: right; }
+        .speed-btn {
+            background: #334155 !important;
+            border-radius: 4px;
+            font-size: 0.85em !important;
+            padding: 4px 8px !important;
+        }
+        
+        /* 分类筛选 */
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .filter-btn {
+            background: #334155;
+            border: none;
+            color: #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .filter-btn.active { background: #667eea; }
+        
+        body.has-player { padding-bottom: 100px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎧 Ahrefs SEO 知识库</h1>
+        <p>38篇深度文章，随时随地听播客</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-num">38</div>
+                <div class="stat-label">篇文章</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">~12h</div>
+                <div class="stat-label">总时长</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">348</div>
+                <div class="stat-label">MB</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="filters">
+            <button class="filter-btn active" data-cat="all">全部</button>
+            <button class="filter-btn" data-cat="营销">营销通用</button>
+            <button class="filter-btn" data-cat="Ahrefs">Ahrefs</button>
+            <button class="filter-btn" data-cat="内容">内容</button>
+            <button class="filter-btn" data-cat="SEO">SEO基础</button>
+            <button class="filter-btn" data-cat="技术">技术SEO</button>
+            <button class="filter-btn" data-cat="链接">外链</button>
+        </div>
+        <div class="article-list" id="articleList"></div>
+    </div>
+    
+    <div class="player-bar" id="playerBar">
+        <div class="player-inner">
+            <div class="player-title" id="playerTitle">-</div>
+            <div class="player-controls">
+                <button id="prevBtn">⏮</button>
+                <button id="playPauseBtn">▶️</button>
+                <button id="nextBtn">⏭</button>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="time" id="timeDisplay">0:00 / 0:00</span>
+                <button class="speed-btn" id="speedBtn">1x</button>
+            </div>
+        </div>
+    </div>
+    
+    <audio id="audioPlayer"></audio>
+    
+    <script>
+    const articles = [
+        {"id":1,"title":"01-营销通用-数字营销全栈指南","audio":"audio/article-01.mp3"},
+        {"id":2,"title":"02-Ahrefs产品-Ahrefs vs 竞品：深度对比","audio":"audio/article-02.mp3"},
+        {"id":3,"title":"02-Ahrefs产品-Ahrefs完全指南：从入门到精通","audio":"audio/article-03.mp3"},
+        {"id":4,"title":"02-Ahrefs产品-Ahrefs用户成功案例集","audio":"audio/article-04.mp3"},
+        {"id":5,"title":"02-Ahrefs产品-Ahrefs高级用法：API与自动化","audio":"audio/article-05.mp3"},
+        {"id":6,"title":"02-营销通用-品牌SEO：从关键词到品牌资产","audio":"audio/article-06.mp3"},
+        {"id":7,"title":"03-内容-AI辅助内容创作","audio":"audio/article-07.mp3"},
+        {"id":8,"title":"03-内容-E-E-A-T实操指南","audio":"audio/article-08.mp3"},
+        {"id":9,"title":"03-内容-SEO内容生产SOP","audio":"audio/article-09.mp3"},
+        {"id":10,"title":"03-内容-内容更新与复用策略","audio":"audio/article-10.mp3"},
+        {"id":11,"title":"03-内容-博客变现路径","audio":"audio/article-11.mp3"},
+        {"id":12,"title":"03-营销通用-低预算营销实战手册","audio":"audio/article-12.mp3"},
+        {"id":13,"title":"04-SEO基础-2024-2025-SEO趋势报告","audio":"audio/article-13.mp3"},
+        {"id":14,"title":"04-SEO基础-Google搜索排名因素","audio":"audio/article-14.mp3"},
+        {"id":15,"title":"04-SEO基础-SEO核心指标体系","audio":"audio/article-15.mp3"},
+        {"id":16,"title":"04-SEO基础-搜索意图完全指南","audio":"audio/article-16.mp3"},
+        {"id":17,"title":"04-营销通用-社交媒体×SEO协同策略","audio":"audio/article-17.mp3"},
+        {"id":18,"title":"05-AI搜索-AI搜索优化策略","audio":"audio/article-18.mp3"},
+        {"id":19,"title":"05-AI搜索-AI搜索数据报告合集","audio":"audio/article-19.mp3"},
+        {"id":20,"title":"05-技术SEO-Core Web Vitals优化","audio":"audio/article-20.mp3"},
+        {"id":21,"title":"05-技术SEO-JavaScript SEO","audio":"audio/article-21.mp3"},
+        {"id":22,"title":"06-关键词-关键词研究完全指南","audio":"audio/article-22.mp3"},
+        {"id":23,"title":"06-关键词-竞争对手分析框架","audio":"audio/article-23.mp3"},
+        {"id":24,"title":"06-技术SEO-国际SEO与多语言优化","audio":"audio/article-24.mp3"},
+        {"id":25,"title":"06-技术SEO-技术SEO完全指南","audio":"audio/article-25.mp3"},
+        {"id":26,"title":"07-垂直领域-B2B-SaaS-SEO手册","audio":"audio/article-26.mp3"},
+        {"id":27,"title":"07-垂直领域-YouTube-SEO","audio":"audio/article-27.mp3"},
+        {"id":28,"title":"07-垂直领域-本地SEO实战手册","audio":"audio/article-28.mp3"},
+        {"id":29,"title":"07-垂直领域-电商SEO","audio":"audio/article-29.mp3"},
+        {"id":30,"title":"08-数据分析-SEO数据仪表盘","audio":"audio/article-30.mp3"},
+        {"id":31,"title":"08-数据分析-SEO自动化工作流","audio":"audio/article-31.mp3"},
+        {"id":32,"title":"08-数据分析-流量下跌诊断手册","audio":"audio/article-32.mp3"},
+        {"id":33,"title":"09-链接-Outreach邮件模板库","audio":"audio/article-33.mp3"},
+        {"id":34,"title":"09-链接-外链建设策略全书","audio":"audio/article-34.mp3"},
+        {"id":35,"title":"09-链接-锚文本优化指南","audio":"audio/article-35.mp3"},
+        {"id":36,"title":"10-SEO职业-SEO团队管理","audio":"audio/article-36.mp3"},
+        {"id":37,"title":"10-SEO职业-SEO服务定价指南","audio":"audio/article-37.mp3"},
+        {"id":38,"title":"10-SEO职业-新网站SEO完整指南","audio":"audio/article-38.mp3"}
+    ];
+    
+    let currentIndex = -1;
+    let isPlaying = false;
+    const speeds = [0.75, 1, 1.25, 1.5, 2];
+    let speedIndex = 1;
+    
+    const audio = document.getElementById('audioPlayer');
+    const playerBar = document.getElementById('playerBar');
+    const playerTitle = document.getElementById('playerTitle');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progressFill = document.getElementById('progressFill');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const speedBtn = document.getElementById('speedBtn');
+    const articleList = document.getElementById('articleList');
+    
+    function parseTitle(title) {
+        const parts = title.split('-');
+        const category = parts[1] || '';
+        const name = parts.slice(2).join('-') || parts[1] || title;
+        return { category, name };
+    }
+    
+    function renderArticles(filter = 'all') {
+        articleList.innerHTML = articles
+            .filter(a => filter === 'all' || a.title.includes(filter))
+            .map(a => {
+                const { category, name } = parseTitle(a.title);
+                const isActive = currentIndex === a.id - 1;
+                return `
+                    <div class="article-card ${isActive ? 'playing' : ''}" data-id="${a.id}">
+                        <div class="article-num">${String(a.id).padStart(2, '0')}</div>
+                        <div class="article-info">
+                            <div class="article-title">${name}</div>
+                            <div class="article-category">${category}</div>
+                        </div>
+                        <div class="play-btn">${isActive && isPlaying ? '⏸' : '▶'}</div>
+                    </div>
+                `;
+            }).join('');
+    }
+    
+    function playArticle(index) {
+        currentIndex = index;
+        const article = articles[index];
+        audio.src = article.audio;
+        audio.playbackRate = speeds[speedIndex];
+        audio.play();
+        isPlaying = true;
+        playerBar.classList.add('active');
+        document.body.classList.add('has-player');
+        playerTitle.textContent = parseTitle(article.title).name;
+        playPauseBtn.textContent = '⏸';
+        renderArticles();
+    }
+    
+    function togglePlay() {
+        if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+            playPauseBtn.textContent = '▶️';
+        } else {
+            audio.play();
+            isPlaying = true;
+            playPauseBtn.textContent = '⏸';
+        }
+        renderArticles();
+    }
+    
+    function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+    
+    // Events
+    articleList.addEventListener('click', e => {
+        const card = e.target.closest('.article-card');
+        if (card) {
+            const id = parseInt(card.dataset.id);
+            if (currentIndex === id - 1 && isPlaying) {
+                togglePlay();
+            } else {
+                playArticle(id - 1);
+            }
+        }
+    });
+    
+    playPauseBtn.addEventListener('click', togglePlay);
+    
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        if (currentIndex > 0) playArticle(currentIndex - 1);
+    });
+    
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if (currentIndex < articles.length - 1) playArticle(currentIndex + 1);
+    });
+    
+    document.getElementById('progressBar').addEventListener('click', e => {
+        const rect = e.target.getBoundingClientRect();
+        const pct = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = pct * audio.duration;
+    });
+    
+    speedBtn.addEventListener('click', () => {
+        speedIndex = (speedIndex + 1) % speeds.length;
+        audio.playbackRate = speeds[speedIndex];
+        speedBtn.textContent = speeds[speedIndex] + 'x';
+    });
+    
+    audio.addEventListener('timeupdate', () => {
+        const pct = (audio.currentTime / audio.duration) * 100;
+        progressFill.style.width = pct + '%';
+        timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration || 0)}`;
+    });
+    
+    audio.addEventListener('ended', () => {
+        if (currentIndex < articles.length - 1) {
+            playArticle(currentIndex + 1);
+        } else {
+            isPlaying = false;
+            playPauseBtn.textContent = '▶️';
+            renderArticles();
+        }
+    });
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderArticles(btn.dataset.cat);
+        });
+    });
+    
+    // Init
+    renderArticles();
+    </script>
+</body>
+</html>
