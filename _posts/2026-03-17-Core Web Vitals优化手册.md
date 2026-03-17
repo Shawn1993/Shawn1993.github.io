@@ -14,6 +14,9 @@ Core Web Vitals（核心网页指标）是 Google 用于衡量用户在网页上
 
 ### 1.1 什么是 Core Web Vitals
 
+![A dashboard screenshot from Ahrefs Brand Radar showing an overview of Tesla's AI visibility. It displays key metrics like AI Share of Voice (65.0%), and a line graph comparing Tesla's share of voice against competitors like BYD, Lucid, and Rivian over the past year. ](https://ahrefs.com/blog/wp-content/uploads/2025/09/a-dashboard-screenshot-from-ahrefs-brand-radar-sho.png)
+
+
 Core Web Vitals 是 Google Page Experience 信号的核心组成部分，用于量化用户在网页上的真实体验。这些指标基于 Chrome 用户体验报告（CrUX）的真实用户数据，而非实验室模拟环境。
 
 Google 之所以推出 CWV，是因为传统的性能指标（如"页面加载完成时间"）无法准确反映用户的感知体验。用户可能在页面完全加载之前就开始与内容交互，或者在技术上已"加载完成"的页面上仍然感到卡顿。
@@ -122,6 +125,9 @@ CDN 将内容缓存到离用户更近的服务器，大幅减少延迟。
 ### 2.4 图片优化策略
 
 对于大多数网站，LCP 元素是图片。图片优化是 LCP 优化的核心。
+
+![15 reports 2](https://ahrefs.com/blog/wp-content/uploads/2020/02/15-reports-2.png)
+
 
 #### 2.4.1 图片格式选择（WebP/AVIF）
 
@@ -332,6 +338,9 @@ CLS 衡量页面的视觉稳定性——用户最讨厌的体验之一就是"我
 
 bfcache（后退/前进缓存）允许浏览器缓存整个页面状态，用户点击后退/前进时立即恢复。
 
+![google-search-console-clicks-performance-dashboard](https://ahrefs.com/blog/wp-content/uploads/2024/03/google-search-console-clicks-performance-dashboard.jpg)
+
+
 **启用 bfcache 的要点**：
 - 不使用 `unload` 事件监听器
 - 避免 `Cache-Control: no-store`
@@ -470,6 +479,9 @@ window.addEventListener('scroll', throttledScroll, { passive: true });
 
 Chrome User Experience Report（CrUX）是 CWV 数据的权威来源。
 
+![Three traits for effective content marketing reports. ](https://ahrefs.com/blog/wp-content/uploads/2024/03/three-traits-for-effective-content-marketing-repor.png)
+
+
 **访问 CrUX 数据**：
 - PageSpeed Insights（单页面）
 - CrUX Dashboard（趋势分析）
@@ -598,6 +610,9 @@ WordPress 5.5+ 内置了原生图片延迟加载，但可能需要优化：
 ## 第六章：常见误区与优先级
 
 ### 7.1 不要追求100分
+
+![referring domains top ranking page](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-top-ranking-page.png)
+
 
 **误区**：必须让 PageSpeed Insights 达到 100 分。
 

@@ -14,6 +14,9 @@ layout: post
 
 ### 1.1 现代网站为什么依赖 JavaScript
 
+![Top pages report, via Ahrefs' Site Explorer ](https://ahrefs.com/blog/wp-content/uploads/2023/05/image13-3.png)
+
+
 JavaScript 已经从简单的交互脚本发展成为构建整个应用的核心技术。现代网站使用 JavaScript 的原因包括：
 
 - **丰富的用户交互**：动态内容加载、实时更新
@@ -145,6 +148,9 @@ Google 的渲染资源是有限的。优先级因素包括：
 ## 第二章：渲染方式对比
 
 选择正确的渲染方式是 JavaScript SEO 的核心决策。
+
+![Key statistics for Shopify's free tools page, via Ahrefs' Site Explorer](https://ahrefs.com/blog/wp-content/uploads/2022/11/2-shopify-free-tools-stats.png)
+
 
 ### 3.1 CSR（客户端渲染）的 SEO 问题
 
@@ -321,6 +327,9 @@ document.title = 'My Page Title';
 ### 4.4 延迟加载图片的 SEO 影响
 
 **问题**：使用 data-src 或 JavaScript 加载图片。
+
+![referring domains top ranking page](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-top-ranking-page.png)
+
 
 ```html
 <!-- 可能有问题 -->
@@ -513,6 +522,9 @@ export async function getStaticPaths() {
 
 ### 6.1 Vue + Nuxt.js
 
+![Google Trends for "content marketing" ](https://ahrefs.com/blog/wp-content/uploads/2022/07/1-google-trends.png)
+
+
 **Nuxt.js** 是 Vue 生态的 SSR/SSG 框架：
 
 ```vue
@@ -641,6 +653,9 @@ curl 不执行 JavaScript，返回原始 HTML。
 ### 7.5 日志文件分析
 
 日志分析可以揭示 Googlebot 的实际行为：
+
+![Three traits for effective content marketing reports. ](https://ahrefs.com/blog/wp-content/uploads/2024/03/three-traits-for-effective-content-marketing-repor.png)
+
 
 **关注点**：
 - Googlebot 请求了哪些 JavaScript 文件

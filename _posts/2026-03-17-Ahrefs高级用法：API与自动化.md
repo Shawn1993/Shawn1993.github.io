@@ -18,6 +18,9 @@ SEO是一项数据密集型工作。每天，SEO从业者需要：
 - 审计数万个页面的技术问题
 - 分析海量的反向链接数据
 
+![referring domains eighth ranking page](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-eighth-ranking-page.png)
+
+
 当业务规模扩大，手动操作不再可行。这就是为什么Ahrefs不仅是一个工具，更是一个可编程的SEO数据平台。
 
 Ahrefs拥有280亿关键词数据库、SEO行业第二活跃的爬虫，以及全球最大的实时反向链接索引。这些数据资产可以通过多种方式被自动化调用：
@@ -106,6 +109,9 @@ for domain in competitors:
 
 基于Ahrefs官方文档和企业用户的最佳实践，以下是8个最具价值的API应用场景：
 
+![Finding the Organic Competitors report in Ahrefs' dashboard.](https://ahrefs.com/blog/wp-content/uploads/2025/01/finding-the-organic-competitors-report-in-ahrefs.png)
+
+
 ### 3.1 自动化竞争对手监控
 
 **场景描述**：
@@ -175,6 +181,9 @@ SEO代理商需要每月为客户生成包含多项指标的SEO报告。
 - MCP是一种协议，允许AI模型（如Claude、ChatGPT）调用外部工具
 - Ahrefs提供官方MCP服务器
 - 用户无需编码即可通过自然语言查询Ahrefs数据
+
+![A gif flicking through 6 pages of Ahrefs' brand awareness Looker Studio dashboard, complete with scorecard stats, tables, and history charts](https://ahrefs.com/blog/wp-content/uploads/2025/04/word-image-187106-1.gif)
+
 
 **为什么这很重要？**
 > "LLM生成的关键词数据和搜索量是猜测而非真实指标。Ahrefs MCP让AI助手直接调用Ahrefs实时数据库。AI不能替代SEO判断力，但可加速从洞察到行动的过程。"
@@ -260,6 +269,8 @@ Ahrefs官方文档提供了15个MCP使用场景，按复杂度分为三级：
 
 **使用场景**：
 
+
+
 **场景1：大规模外链审计**
 - 导入1,000个潜在外链目标
 - 批量获取DR和流量
@@ -341,6 +352,9 @@ Screaming Frog是业界标准的技术SEO爬虫，与Ahrefs集成后可以：
 - 新反链 → Slack通知
 - 排名变化 → 邮件提醒
 - 周报数据 → 自动存档
+
+![referring domains top ranking page](https://ahrefs.com/blog/wp-content/uploads/2018/09/referring-domains-top-ranking-page.png)
+
 
 ---
 
