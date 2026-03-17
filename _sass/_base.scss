@@ -1,204 +1,256 @@
-/**
- * Reset some basic elements
- */
-body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr,
-dl, dd, ol, ul, figure {
-    margin: 0;
-    padding: 0;
+// ============================================
+// Reset & Base
+// ============================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+html {
+  font-size: $base-font-size;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-
-/**
- * Basic styling
- */
 body {
-    font-family: $base-font-family;
-    font-size: $base-font-size;
-    line-height: $base-line-height;
-    font-weight: 300;
-    color: $text-color;
-    background-color: $background-color;
-    -webkit-text-size-adjust: 100%;
+  font-family: $font-sans;
+  font-size: 1rem;
+  line-height: $base-line-height;
+  color: $color-text;
+  background-color: $color-bg;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
 
+// ============================================
+// Typography
+// ============================================
 
-
-/**
- * Set `margin-bottom` to maintain vertical rhythm
- */
-h1, h2, h3, h4, h5, h6,
-p, blockquote, pre,
-ul, ol, dl, figure,
-%vertical-rhythm {
-    margin-bottom: $spacing-unit / 2;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.35;
+  color: $color-text;
+  letter-spacing: -0.01em;
 }
 
+h1 { font-size: 2rem; margin-bottom: 0.75em; }
+h2 { font-size: 1.5rem; margin-bottom: 0.6em; margin-top: 2em; }
+h3 { font-size: 1.25rem; margin-bottom: 0.5em; margin-top: 1.5em; }
+h4 { font-size: 1.1rem; margin-bottom: 0.4em; margin-top: 1.25em; }
+h5, h6 { font-size: 1rem; margin-bottom: 0.4em; margin-top: 1em; }
 
+p {
+  margin-bottom: 1.2em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 
-/**
- * Images
- */
+strong {
+  font-weight: 600;
+}
+
+// ============================================
+// Links
+// ============================================
+
+a {
+  color: $color-accent;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-accent-hover;
+  }
+
+  &:visited {
+    color: $color-accent;
+  }
+}
+
+// ============================================
+// Images
+// ============================================
+
 img {
-    max-width: 100%;
-    vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
 }
 
+figure {
+  margin: 1.5em 0;
 
+  > img {
+    margin: 0 auto;
+  }
 
-/**
- * Figures
- */
-figure > img {
-    display: block;
-}
-
-figcaption {
+  figcaption {
+    text-align: center;
     font-size: $small-font-size;
+    color: $color-text-secondary;
+    margin-top: 0.5em;
+  }
 }
 
+// ============================================
+// Lists
+// ============================================
 
-
-/**
- * Lists
- */
 ul, ol {
-    margin-left: $spacing-unit;
-}
+  margin-left: 1.5em;
+  margin-bottom: 1.2em;
 
-li {
+  li {
+    margin-bottom: 0.3em;
+
     > ul,
     > ol {
-         margin-bottom: 0;
+      margin-bottom: 0;
+      margin-top: 0.3em;
     }
+  }
 }
 
+// ============================================
+// Blockquotes
+// ============================================
 
-
-/**
- * Headings
- */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
-}
-
-
-
-/**
- * Links
- */
-a {
-    color: $brand-color;
-    text-decoration: none;
-
-    &:visited {
-        color: darken($brand-color, 15%);
-    }
-
-    &:hover {
-        color: $text-color;
-        text-decoration: underline;
-    }
-}
-
-
-
-/**
- * Blockquotes
- */
 blockquote {
-    color: $grey-color;
-    border-left: 4px solid $grey-color-light;
-    padding-left: $spacing-unit / 2;
-    font-size: 18px;
-    letter-spacing: -1px;
-    font-style: italic;
+  border-left: 3px solid $color-accent;
+  padding: 0.8em 1.2em;
+  margin: 1.5em 0;
+  background: $color-bg-secondary;
+  border-radius: 0 6px 6px 0;
+  color: $color-text-secondary;
+  font-size: 0.95rem;
 
-    > :last-child {
-        margin-bottom: 0;
-    }
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 0.5em;
+  }
 }
 
-
-
-/**
- * Code formatting
- */
-pre,
-code {
-    font-size: 15px;
-    border: 1px solid $grey-color-light;
-    border-radius: 3px;
-    background-color: #eef;
-}
+// ============================================
+// Code
+// ============================================
 
 code {
-    padding: 1px 5px;
+  font-family: $font-mono;
+  font-size: 0.875em;
+  background: $color-bg-secondary;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: #e11d48;
+  word-break: break-word;
 }
 
 pre {
-    padding: 8px 12px;
-    overflow-x: scroll;
+  font-family: $font-mono;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  background: $color-bg-code;
+  color: #cdd6f4;
+  padding: 1.25em 1.5em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  -webkit-overflow-scrolling: touch;
 
-    > code {
-        border: 0;
-        padding-right: 0;
-        padding-left: 0;
-    }
+  code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+    border-radius: 0;
+    word-break: normal;
+  }
 }
 
+// ============================================
+// Tables
+// ============================================
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  display: block;
 
-/**
- * Wrapper
- */
-.wrapper {
-    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
-    max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: $spacing-unit;
-    padding-left: $spacing-unit;
-    @extend %clearfix;
-
-    @include media-query($on-laptop) {
-        max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
-        max-width:         calc(#{$content-width} - (#{$spacing-unit}));
-        padding-right: $spacing-unit / 2;
-        padding-left: $spacing-unit / 2;
-    }
+  @include respond-to($breakpoint-md) {
+    font-size: 0.85rem;
+  }
 }
 
-
-
-/**
- * Clearfix
- */
-%clearfix {
-
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+thead {
+  border-bottom: 2px solid $color-border;
 }
 
+th {
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75em 1em;
+  color: $color-text;
+  background: $color-bg-secondary;
+  white-space: nowrap;
+}
 
+td {
+  padding: 0.75em 1em;
+  border-bottom: 1px solid $color-border-light;
+}
 
-/**
- * Icons
- */
-.icon {
+tbody tr:hover {
+  background: $color-bg-secondary;
+}
 
-    > svg {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        vertical-align: middle;
+// ============================================
+// Horizontal Rule
+// ============================================
 
-        path {
-            fill: $grey-color;
-        }
-    }
+hr {
+  border: none;
+  border-top: 1px solid $color-border;
+  margin: 2em 0;
+}
+
+// ============================================
+// Selection
+// ============================================
+
+::selection {
+  background: $color-accent-light;
+  color: $color-accent-hover;
+}
+
+// ============================================
+// Scrollbar (Webkit)
+// ============================================
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-border;
+  border-radius: 3px;
+
+  &:hover {
+    background: $color-text-tertiary;
+  }
 }

@@ -1,6 +1,8 @@
-<div class="docs-header" id="content">
-  <div class="container">
-	    <h1>{{ site.name }}</h1>
-	    <p>{{ site.motto }}</p>
-  </div>
+{% unless page.title and page.title != "home" %}
+<div class="site-hero">
+    <div class="content-container">
+        <h1 class="site-hero__title">{{ site.name }}</h1>
+        <p class="site-hero__subtitle">{{ site.motto }}</p>
+    </div>
 </div>
+{% endunless %}

@@ -1,47 +1,34 @@
 ---
 layout: default
 title: Categories
-header: Posts By Category
 ---
-
-<div class="container docs-container">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="sidebar hidden-print" role="complementary">
-        <div id="navigation">
-        	<h1>分类</h1>
-      		<ul class="nav sidenav">
-				{% if site.categories.first[0] == null %}
-					{% for category in site.categories %} 
-				    	<li><a href="#{{ category }}-ref">
-				    		{{ category | join: "/" }} <span style="color: #999999;" >({{ site.categories[category].size }})</span>
-				    	</a></li>
-			    	{% endfor %}
-			  	{% else %}
-			    	{% for category in site.categories %} 
-				    	<li><a href="#{{ category[0] }}-ref">
-				    		{{ category[0] | join: "/" }} <span style="color: #999999;" >({{ category[1].size }})</span>
-				    	</a></li>
-			    	{% endfor %}
-			  	{% endif %}
-          	</ul>
-        </div>
-      </div>
+<div class="taxonomy-layout">
+    <aside class="taxonomy-sidebar">
+        <div class="taxonomy-sidebar__title">分类</div>
+        <ul class="taxonomy-sidebar__list">
+            {% for category in site.categories %}
+            <li class="taxonomy-sidebar__item">
+                <a href="#{{ category[0] }}-ref">
+                    {{ category[0] }}
+                    <span class="count">({{ category[1].size }})</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+    <div class="taxonomy-page">
+        {% for category in site.categories %}
+        <section class="taxonomy-section" id="{{ category[0] }}-ref">
+            <h2 class="taxonomy-section__title">{{ category[0] }}</h2>
+            <ul class="taxonomy-list">
+                {% for post in category[1] %}
+                <li class="taxonomy-list__item">
+                    <span class="taxonomy-list__date">{{ post.date | date: "%Y-%m-%d" }}</span>
+                    <a class="taxonomy-list__link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endfor %}
     </div>
-    <div class="col-md-9" role="main">
-      <div class="panel docs-content">
-        <div class="wrapper">
-          <div class="home">
-			{% for category in site.categories %} 
-			  <h2 id="{{ category[0] }}-ref">{{ category[0] | join: "/" }}</h2>
-			  <ul>
-			    {% assign pages_list = category[1] %}  
-			    {% include LessOrMore/pages_list %}
-			  </ul>
-			{% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

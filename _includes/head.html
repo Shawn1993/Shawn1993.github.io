@@ -2,24 +2,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }}</title>
+    <title>{% if page.title and page.title != "home" %}{{ page.title }} - {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.meta_description }}{% endif %}">
     <link rel="shortcut icon" href="{{ '/styles/images/favicon.jpg' | prepend: site.baseurl }}">
     <link rel="icon" href="{{ '/styles/images/favicon.jpg' | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ '/styles/css/custom.css' | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ '/styles/css/index.css' | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ '/styles/css/fontawesome/css/font-awesome.min.css' | prepend: site.baseurl }}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ '/styles/css/main.css' | prepend: site.baseurl }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ '/feed.xml' | prepend: site.baseurl }}">
-    <meta name="description" content="{{site.meta_description}}">
     <!--mathjax-->
-    <!--mathjax source code is here: https://github.com/mathjax/MathJax.-->
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]], processEscapes: true }, TeX: { equationNumbers: { autoNumber: "AMS" } }, messageStyle: "none", SVG: { blacker: 1 }});
     </script>
     <script src="{{ '/styles/js/mathjax-bind.js' | prepend: site.baseurl }}"></script>
     <script src="{{ '/styles/js/mathjax.js' | prepend: site.baseurl }}"></script>
-    <!--jquery-->
-    <script src="{{ '/styles/js/jquery.min.js' | prepend: site.baseurl }}"></script>
     <script>
     var _hmt = _hmt || [];
     (function() {
@@ -29,9 +24,4 @@
         s.parentNode.insertBefore(hm, s);
     })();
     </script>
-    <style type="text/css">
-    .docs-content {
-        margin-bottom: 10px;
-    }
-    </style>
 </head>

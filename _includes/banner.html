@@ -1,11 +1,21 @@
-
-<div class="banner">
-  <div class="container">
-  	{% if page.categories != null %}
-    	<a href="{{ '/categories/' | prepend: site.baseurl }}#{{page.categories}}-ref">{{page.categories}}</a>	/
-    	<a href="{{ '/tag/' | prepend: site.baseurl }}#{{page.tag}}-ref">{{page.tag}}</a>
-    {% else %}
-    	{{ page.title }}
-    {% endif %}
-  </div>
+{% if page.layout == 'post' %}
+<div class="content-container">
+    <nav class="page-breadcrumb">
+        <a href="{{ '/' | prepend: site.baseurl }}">首页</a>
+        {% if page.categories %}
+        <span class="separator">/</span>
+        <a href="{{ '/categories/' | prepend: site.baseurl }}#{{ page.categories | first }}-ref">{{ page.categories | first }}</a>
+        {% endif %}
+        <span class="separator">/</span>
+        <span>{{ page.title }}</span>
+    </nav>
 </div>
+{% elsif page.title and page.title != "home" %}
+<div class="content-container">
+    <nav class="page-breadcrumb">
+        <a href="{{ '/' | prepend: site.baseurl }}">首页</a>
+        <span class="separator">/</span>
+        <span>{{ page.title }}</span>
+    </nav>
+</div>
+{% endif %}
